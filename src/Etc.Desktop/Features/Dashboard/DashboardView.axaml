@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Dashboard" xmlns:a="using:Etc.Desktop.Features.Applications" xmlns:r="using:Etc.Desktop.Features.Recruitments" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.Features.Dashboard.DashboardView" x:DataType="vm:DashboardViewModel">
+  <StackPanel Spacing="24">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+      <TextBlock Classes="muted" Text="Pantau lamaran dan kebutuhan anggota tim Anda." VerticalAlignment="Center"/>
+      <Button Grid.Column="1" Classes="primary" Command="{Binding SearchCommand}"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=search,Converter={StaticResource Icon}}"/><TextBlock Text="Cari rekrutmen"/></StackPanel></Button>
+    </Grid>
+    <Border Classes="panel" Padding="8" IsVisible="{Binding HasData}">
+      <s:AdaptiveGrid WideColumns="4" NarrowColumns="2" SideWidth="0" Breakpoint="800" ColumnSpacing="8" RowSpacing="8">
+        <Button Classes="metric" Command="{Binding RecruitmentsCommand}" AutomationProperties.Name="Buka rekrutmen saya"><StackPanel Spacing="8"><TextBlock Text="Rekrutmen aktif saya" Classes="muted"/><TextBlock Text="{Binding Stats.ActiveRecruitments}" Classes="kpi"/><TextBlock Text="Kelola rekrutmen" Classes="small"/></StackPanel></Button>
+        <Button Classes="metric" Command="{Binding ApplicationsCommand}" AutomationProperties.Name="{Binding Stats.PendingApplications,StringFormat='Lihat riwayat lamaran; {0} lamaran menunggu'}"><StackPanel Spacing="8"><TextBlock Text="Lamaran menunggu" Classes="muted"/><TextBlock Text="{Binding Stats.PendingApplications}" Classes="kpi"/><TextBlock Text="Lihat riwayat lamaran" Classes="small"/></StackPanel></Button>
+        <Button Classes="metric" Command="{Binding ApplicationsCommand}" AutomationProperties.Name="{Binding Stats.AcceptedApplications,StringFormat='Lihat riwayat lamaran; {0} lamaran diterima'}"><StackPanel Spacing="8"><TextBlock Text="Lamaran diterima" Classes="muted"/><TextBlock Text="{Binding Stats.AcceptedApplications}" Classes="kpi"/><TextBlock Text="Lihat riwayat lamaran" Classes="small"/></StackPanel></Button>
+        <Button Classes="metric" Command="{Binding BookmarksCommand}" AutomationProperties.Name="Buka bookmark"><StackPanel Spacing="8"><TextBlock Text="Bookmark" Classes="muted"/><TextBlock Text="{Binding Stats.Bookmarks}" Classes="kpi"/><TextBlock Text="Buka daftar simpanan" Classes="small"/></StackPanel></Button>
+      </s:AdaptiveGrid>
+    </Border>
+    <s:AdaptiveGrid IsVisible="{Binding HasData}">
+      <Border Classes="panel" VerticalAlignment="Top"><StackPanel Spacing="16">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=document,Converter={StaticResource Icon}}"/><TextBlock Classes="section" Text="Lamaran terbaru"/></StackPanel><Button Grid.Column="1" Classes="tertiary" Content="Lihat semua" Command="{Binding ApplicationsCommand}"/></Grid>
+        <Border Classes="activity" IsVisible="{Binding !HasApplications}"><StackPanel Spacing="12"><TextBlock Classes="muted" Text="Belum ada lamaran. Cari rekrutmen untuk mulai bergabung."/><Button HorizontalAlignment="Left" Content="Cari rekrutmen" Command="{Binding SearchCommand}"/></StackPanel></Border>
+        <ItemsControl ItemsSource="{Binding RecentApplications}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="a:MyApplicationRow">
+          <Border Classes="activity"><StackPanel Spacing="10">
+            <Button Classes="tertiary" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{ReflectionBinding $parent[UserControl].DataContext.OpenRecruitmentCommand}" CommandParameter="{Binding RecruitmentId}"><TextBlock Text="{Binding RecruitmentTitle}" FontWeight="SemiBold"/></Button>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12"><TextBlock Text="{Binding PositionName}" Classes="muted"/><Border Grid.Column="1" Classes="status" Classes.accepted="{Binding IsAccepted}" Classes.rejected="{Binding IsRejected}"><TextBlock Text="{Binding StatusText}"/></Border></Grid>
+            <TextBlock Text="{Binding SubmittedText}" Classes="small"/>
+          </StackPanel></Border>
+        </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      </StackPanel></Border>
+      <Border Classes="panel" VerticalAlignment="Top"><StackPanel Spacing="16">
+        <StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=team,Converter={StaticResource Icon}}"/><TextBlock Classes="section" Text="Rekrutmen saya"/></StackPanel>
+        <Button Classes="tertiary" HorizontalAlignment="Left" Content="Kelola rekrutmen" Command="{Binding RecruitmentsCommand}"/>
+        <Border Classes="activity" IsVisible="{Binding !HasRecruitments}"><TextBlock Classes="muted" Text="Anda belum membuat rekrutmen."/></Border>
+        <ItemsControl ItemsSource="{Binding MyRecentRecruitments}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="r:RecruitmentSummary">
+          <Border Classes="activity"><StackPanel Spacing="10">
+            <TextBlock Text="{Binding Title}" FontWeight="SemiBold"/><Border Classes="status"><TextBlock Text="{Binding StatusText}"/></Border>
+            <TextBlock Text="{Binding PositionsText}" Classes="small"/>
+            <Button Content="Lihat pelamar" HorizontalAlignment="Left" IsVisible="{Binding !IsDraft}" Command="{ReflectionBinding $parent[UserControl].DataContext.OpenApplicantsCommand}" CommandParameter="{Binding Id}"/>
+          </StackPanel></Border>
+        </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      </StackPanel></Border>
+    </s:AdaptiveGrid>
+    <TextBlock Classes="small" Text="Data diperbarui saat halaman dimuat."/>
+  </StackPanel>
+</UserControl>

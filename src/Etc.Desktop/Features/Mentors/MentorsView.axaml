@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Mentors" xmlns:p="using:Etc.Desktop.Features.Profiles" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.Features.Mentors.MentorsView" x:DataType="vm:MentorsViewModel">
+  <StackPanel Spacing="24">
+    <TextBlock Text="Pilih mentor berdasarkan keahlian dan pengalaman mereka." Classes="muted"/>
+    <Border Classes="panel" Padding="16">
+      <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto,Auto" RowSpacing="8" ColumnSpacing="8">
+        <TextBlock Grid.ColumnSpan="3" Text="Cari nama atau keahlian mentor" Classes="label"/>
+        <TextBox Grid.Row="1" Classes="mentor-search" Text="{Binding SearchText}" MaxLength="200" AutomationProperties.Name="Cari mentor" PlaceholderText="Nama mentor atau keahlian" PlaceholderForeground="{DynamicResource Etc.Color.Faint}">
+          <TextBox.KeyBindings><KeyBinding Gesture="Enter" Command="{Binding SearchCommand}"/></TextBox.KeyBindings>
+        </TextBox>
+        <Button Grid.Row="1" Grid.Column="1" Classes="primary" Command="{Binding SearchCommand}" VerticalAlignment="Center"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=search,Converter={StaticResource Icon}}"/><TextBlock Text="Cari mentor"/></StackPanel></Button>
+        <Button Grid.Row="1" Grid.Column="2" Content="Hapus pencarian" Command="{Binding ResetCommand}" IsVisible="{Binding HasSearch}" VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+      <TextBlock Text="Pilih mentor" Classes="section" AutomationProperties.HeadingLevel="2"/>
+      <TextBlock Grid.Column="1" Text="{Binding Total,StringFormat='{}{0} mentor ditemukan'}" Classes="small" VerticalAlignment="Center"/>
+    </Grid>
+    <Border Classes="panel" IsVisible="{Binding !HasItems}"><StackPanel Spacing="12"><TextBlock Text="Tidak ada mentor yang cocok dengan pencarian ini." Classes="section"/><TextBlock Text="Coba nama atau keahlian lain, atau hapus pencarian untuk melihat semua mentor." Classes="muted"/><Button Content="Hapus pencarian" Command="{Binding ResetCommand}" HorizontalAlignment="Left"/></StackPanel></Border>
+    <ItemsControl ItemsSource="{Binding Items}" Grid.IsSharedSizeScope="True">
+      <ItemsControl.ItemsPanel><ItemsPanelTemplate><s:AdaptiveGrid Breakpoint="920" SideWidth="0" ColumnSpacing="16" RowSpacing="16"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:MentorSummary">
+          <Border Classes="list-card mentor-card" Margin="0">
+            <Grid RowSpacing="16">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" SharedSizeGroup="MentorIdentity"/>
+                <RowDefinition Height="Auto" SharedSizeGroup="MentorSkills"/>
+                <RowDefinition Height="Auto" SharedSizeGroup="MentorExperience"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Grid ColumnDefinitions="104,*" ColumnSpacing="16">
+                <Border Width="104" Height="128" Background="{DynamicResource Etc.Color.Raised}" CornerRadius="6" ClipToBounds="True" VerticalAlignment="Top">
+                  <Grid><TextBlock Text="{Binding Initials}" Classes="section" HorizontalAlignment="Center" VerticalAlignment="Center"/><Image Source="{Binding Photo,Converter={StaticResource Photo}}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Name,StringFormat='Foto mentor {0}'}"/></Grid>
+                </Border>
+                <StackPanel Grid.Column="1" Spacing="8">
+                  <TextBlock Text="{Binding Name}" Classes="section" AutomationProperties.HeadingLevel="3"/>
+                  <TextBlock Text="{Binding CohortText}" Classes="small"/>
+                  <TextBlock Text="{Binding FocusText}" Foreground="{DynamicResource Etc.Color.AccentInk}"/>
+                  <TextBlock Text="Data demonstrasi" Classes="small" IsVisible="{Binding IsDemo}"/>
+                </StackPanel>
+              </Grid>
+              <ItemsControl Grid.Row="1" ItemsSource="{Binding Skills}">
+                <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate><DataTemplate x:DataType="p:SkillOption"><Button Classes="mentor-skill" Content="{Binding Name}" ToolTip.Tip="Cari mentor dengan keahlian ini" Command="{ReflectionBinding $parent[UserControl].DataContext.FilterSkillCommand}" CommandParameter="{Binding Name}" Margin="0,0,8,8"/></DataTemplate></ItemsControl.ItemTemplate>
+              </ItemsControl>
+              <TextBlock Grid.Row="2" Text="{Binding ExperiencePreview}" Classes="muted" MinHeight="40" MaxLines="2" TextTrimming="CharacterEllipsis" VerticalAlignment="Top"/>
+              <Border Grid.Row="3" Classes="card-actions">
+                <Button HorizontalAlignment="Left" Command="{ReflectionBinding $parent[UserControl].DataContext.OpenCommand}" CommandParameter="{Binding Id}"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=team,Converter={StaticResource Icon}}"/><TextBlock Text="Lihat profil mentor"/></StackPanel></Button>
+              </Border>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <WrapPanel><TextBlock Text="{Binding PagingText}" Classes="muted" Margin="0,0,24,8" VerticalAlignment="Center"/><Button Content="Sebelumnya" Command="{Binding PreviousCommand}" Margin="0,0,12,8"/><Button Content="Berikutnya" Command="{Binding NextCommand}"/></WrapPanel>
+  </StackPanel>
+</UserControl>

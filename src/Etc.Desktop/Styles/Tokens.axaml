@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Light">
+      <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundChecked">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundCheckedPointerOver">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundCheckedPressed">#FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundIndeterminate">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundIndeterminatePointerOver">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundIndeterminatePressed">#FFFFFF</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.Ground">#F1F4F8</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Surface">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Raised">#F3F4F6</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.PrimaryHover">#17385E</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.NavProfile">#1D4ED8</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.NavLogout">#B91C1C</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.Text">#182230</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Muted">#596273</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Faint">#626A75</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.Border">#E5E7EB</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Rule">#EDEFF2</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.ControlBorder">#7A8492</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.AccentSoft">#FFF6D6</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.AccentInk">#705600</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.Primary">#0B1F3A</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.OnPrimary">#FFFFFF</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Focus">#0B1F3A</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.QuotaFill">#0B1F3A</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.QuotaTrack">#D1D5DB</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.SuccessInk">#14532D</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.SuccessSoft">#DCFCE7</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.DangerInk">#831C1E</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.DangerSoft">#FFEDEA</SolidColorBrush>
+      <SolidColorBrush x:Key="Etc.Color.NeutralInk">#374151</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.NeutralSoft">#F3F4F6</SolidColorBrush>
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
+  <SolidColorBrush x:Key="Etc.Color.BrandNavy">#0B1F3A</SolidColorBrush><SolidColorBrush x:Key="Etc.Color.Accent">#F8C832</SolidColorBrush>
+  <FontFamily x:Key="Etc.Font">avares://Etc.Desktop/Assets/Fonts#DM Sans</FontFamily>
+  <x:Double x:Key="Etc.Type.Title">32</x:Double><x:Double x:Key="Etc.Type.Section">18</x:Double><x:Double x:Key="Etc.Type.Kpi">24</x:Double><x:Double x:Key="Etc.Type.Body">14</x:Double><x:Double x:Key="Etc.Type.Label">14</x:Double><x:Double x:Key="Etc.Type.Small">12</x:Double>
+  <x:Double x:Key="Etc.Space.Unit">4</x:Double><x:Double x:Key="Etc.Space.Inline">8</x:Double><x:Double x:Key="Etc.Space.Field">16</x:Double><x:Double x:Key="Etc.Space.Gap">24</x:Double><x:Double x:Key="Etc.Space.Canvas">29</x:Double><x:Double x:Key="Etc.Space.CompactCanvas">24</x:Double><x:Double x:Key="Etc.Space.Panel">24</x:Double>
+  <CornerRadius x:Key="Etc.Radius.Panel">8</CornerRadius><CornerRadius x:Key="Etc.Radius.Control">6</CornerRadius><CornerRadius x:Key="Etc.Radius.Status">4</CornerRadius>
+  <x:Double x:Key="Etc.Size.Sidebar">230</x:Double><x:Double x:Key="Etc.Size.Topbar">64</x:Double><x:Double x:Key="Etc.Size.CompactTopbar">56</x:Double><x:Double x:Key="Etc.Size.NavPitch">40</x:Double><x:Double x:Key="Etc.Size.ToolbarControl">32</x:Double><x:Double x:Key="Etc.Size.FormControl">40</x:Double><x:Double x:Key="Etc.Size.DataRow">45</x:Double><x:Double x:Key="Etc.Size.MediaRow">72</x:Double>
+</ResourceDictionary>

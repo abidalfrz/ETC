@@ -1,0 +1,1 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.MainWindow" x:DataType="s:ShellViewModel" Title="ETC - Elite TC Champions" Width="1280" Height="800" MinWidth="800" MinHeight="560"><s:ShellView/></Window>

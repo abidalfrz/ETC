@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Recruitments" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.Features.Recruitments.RecruitmentDetailView" x:DataType="vm:RecruitmentDetailViewModel">
+  <StackPanel Spacing="24" IsVisible="{Binding HasDetail}">
+    <Border Classes="panel"><StackPanel Spacing="16"><WrapPanel><Border Classes="status" Margin="0,0,12,8"><TextBlock Text="{Binding StatusText}"/></Border><TextBlock Text="{Binding CategoryText}" Classes="muted"/></WrapPanel><TextBlock Classes="section" Text="{Binding Detail.Data.Title}"/><Button Classes="tertiary" Padding="0" HorizontalAlignment="Left" Content="{Binding Detail.Owner.FullName}" Command="{Binding OwnerProfileCommand}"/><TextBlock Text="{Binding Detail.Data.ActivityName}" Classes="muted"/><StackPanel Spacing="4"><TextBlock Text="{Binding PublishedText}" Classes="small"/><TextBlock Text="{Binding UpdatedText}" Classes="small"/></StackPanel><Button Content="{Binding BookmarkLabel}" HorizontalAlignment="Left" Command="{Binding BookmarkCommand}"/></StackPanel></Border>
+    <s:AdaptiveGrid ReverseWhenNarrow="True">
+      <StackPanel Spacing="24">
+        <Border Classes="panel"><StackPanel Spacing="16"><TextBlock Text="Tentang kegiatan" Classes="section"/><SelectableTextBlock Text="{Binding Detail.Data.Description}" TextWrapping="Wrap"/></StackPanel></Border>
+        <Border Classes="panel"><StackPanel Spacing="16"><TextBlock Text="Jadwal dan biaya" Classes="section"/><TextBlock Text="Tenggat pendaftaran tim" Classes="label"/><TextBlock Text="{Binding DeadlineText}"/><TextBlock Text="Jadwal kegiatan" Classes="label"/><TextBlock Text="{Binding ScheduleText}"/><TextBlock Text="{Binding Detail.Data.Mode}"/><TextBlock Text="{Binding Detail.Data.Location}"/><TextBlock Text="{Binding FeeText}"/></StackPanel></Border>
+        <Border Classes="panel"><StackPanel Spacing="12"><TextBlock Text="Kontak dan informasi" Classes="section"/><TextBlock Text="{Binding Detail.Data.ContactName}"/><SelectableTextBlock Text="{Binding Detail.Data.ContactChannel}" TextWrapping="Wrap"/><Button Content="Buka informasi kegiatan" HorizontalAlignment="Left" Command="{Binding OpenInfoCommand}" IsVisible="{Binding HasInfoUrl}"/></StackPanel></Border>
+      </StackPanel>
+      <StackPanel Spacing="24">
+        <Border Classes="panel"><StackPanel Spacing="16"><TextBlock Text="Posisi anggota" Classes="section"/>
+          <ListBox ItemsSource="{Binding Detail.Positions}" SelectedItem="{Binding SelectedPosition}" MaxHeight="420" Background="Transparent" BorderThickness="0"><ListBox.ItemTemplate><DataTemplate x:DataType="vm:PositionDetail"><StackPanel Spacing="8" Margin="0,8"><TextBlock Text="{Binding Name}" FontWeight="SemiBold"/><TextBlock Text="{Binding SkillText}" Classes="small"/><TextBlock Text="{Binding QuotaText}"/><ProgressBar Value="{Binding AcceptedCount}" Maximum="{Binding Capacity}"/></StackPanel></DataTemplate></ListBox.ItemTemplate></ListBox>
+          <TextBlock Text="{Binding DisabledReason}" Classes="muted"/>
+          <StackPanel IsVisible="{Binding !IsOwner}" Spacing="16">
+            <Button Content="Lengkapi profil" Command="{Binding CompleteProfileCommand}" IsVisible="{Binding !ProfileComplete}"/>
+            <Button Content="Lihat lamaran saya" Command="{Binding MyApplicationsCommand}" IsVisible="{Binding HasApplied}"/>
+            <StackPanel IsVisible="{Binding !HasApplied}" Spacing="16"><TextBlock Text="Pesan perkenalan *" Classes="label"/><TextBox Text="{Binding Message}" MaxLength="2000" MinHeight="120" AcceptsReturn="True" TextWrapping="Wrap" AutomationProperties.Name="Pesan perkenalan"/><TextBlock Text="Tautan portofolio (opsional)" Classes="label"/><TextBox Text="{Binding PortfolioUrl}" MaxLength="2048" AutomationProperties.Name="Tautan portofolio lamaran"/><Button Classes="primary" Content="Kirim lamaran" Command="{Binding SubmitCommand}" IsEnabled="{Binding CanApply}"/></StackPanel>
+          </StackPanel>
+          <StackPanel IsVisible="{Binding IsOwner}" Spacing="12"><Button Classes="primary" Content="Lihat pelamar" Command="{Binding ApplicantsCommand}"/><Button Content="Edit rekrutmen" Command="{Binding EditCommand}"/></StackPanel>
+        </StackPanel></Border>
+      </StackPanel>
+    </s:AdaptiveGrid>
+  </StackPanel>
+</UserControl>

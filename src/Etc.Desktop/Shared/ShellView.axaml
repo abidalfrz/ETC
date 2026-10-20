@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.Shared.ShellView" x:DataType="s:ShellViewModel">
+  <Grid RowDefinitions="Auto,Auto,*"><Grid.ColumnDefinitions><ColumnDefinition Width="{Binding NavWidth}"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <Border Grid.Column="1" Background="{DynamicResource Etc.Color.Ground}" BorderBrush="{DynamicResource Etc.Color.Rule}" BorderThickness="0,0,0,1" Padding="24,8" MinHeight="{Binding TopbarHeight}">
+      <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+        <StackPanel Orientation="Horizontal" Spacing="8"><Button x:Name="MenuToggle" Classes="tertiary" Content="Menu" IsVisible="{Binding ShowMenuToggle}" Command="{Binding MenuCommand}"/><Button Classes="tertiary" Content="Kembali" IsVisible="{Binding CanGoBack}" Command="{Binding BackCommand}"/></StackPanel>
+        <!-- <TextBlock Grid.Column="1" Classes="muted" VerticalAlignment="Center" Text="Elite TC Champions"/> -->
+        <Button Grid.Column="2" Classes="tertiary account" Content="{Binding AccountName}" ToolTip.Tip="{Binding AccountName}" IsVisible="{Binding IsAuthenticated}" Command="{Binding ProfileCommand}" MaxWidth="190"/>
+      </Grid>
+    </Border>
+    <Border x:Name="SuccessNotification" Grid.Row="1" Grid.Column="1" Background="{DynamicResource Etc.Color.SuccessSoft}" CornerRadius="6" Margin="24,12,24,0" Padding="16,12" IsVisible="{Binding CurrentPage.HasInfo}">
+      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+        <StackPanel Spacing="4" VerticalAlignment="Center"><TextBlock Text="Berhasil" Foreground="{DynamicResource Etc.Color.SuccessInk}" FontWeight="SemiBold"/><TextBlock Text="{Binding CurrentPage.InfoMessage}" Foreground="{DynamicResource Etc.Color.SuccessInk}" AutomationProperties.LiveSetting="Polite"/></StackPanel>
+        <Button Grid.Column="1" Content="Tutup" VerticalAlignment="Center" Command="{Binding CurrentPage.DismissInfoCommand}" AutomationProperties.Name="Tutup pemberitahuan berhasil"/>
+      </Grid>
+    </Border>
+    <ScrollViewer Grid.Row="2" Grid.Column="1" HorizontalScrollBarVisibility="Disabled" Offset="{Binding CurrentPage.ScrollOffset,Mode=TwoWay}">
+      <StackPanel Margin="{Binding CanvasMargin}" Spacing="24">
+        <!-- <TextBlock Classes="small" Text="Mode demonstrasi · Data contoh untuk tugas kuliah" IsVisible="{Binding IsDemoEnvironment}"/> -->
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16" IsVisible="{Binding IsAuthenticated}"><TextBlock Classes="title" Text="{Binding CurrentPage.Title}" AutomationProperties.HeadingLevel="1"/><TextBlock Grid.Column="1" Text="{Binding CurrentPage.LastLoadedText}" Classes="small" IsVisible="{Binding CurrentPage.HasLoadedData}" VerticalAlignment="Center"/></Grid>
+        <TextBlock Text="Sedang memuat atau menyimpan…" Classes="muted" IsVisible="{Binding CurrentPage.IsBusy}"/>
+        <ProgressBar IsIndeterminate="{Binding AnimationsEnabled}" IsVisible="{Binding CurrentPage.IsBusy}" AutomationProperties.Name="Sedang memuat atau menyimpan"/>
+        <Border Background="{DynamicResource Etc.Color.DangerSoft}" CornerRadius="6" Padding="12" IsVisible="{Binding CurrentPage.HasError}"><StackPanel Spacing="8"><TextBlock Foreground="{DynamicResource Etc.Color.DangerInk}" Text="{Binding CurrentPage.ErrorMessage}"/><Button HorizontalAlignment="Left" Content="Coba lagi" Command="{Binding CurrentPage.RetryCommand}"/></StackPanel></Border>
+        <ContentControl Content="{Binding CurrentPage}" HorizontalContentAlignment="Stretch"/>
+      </StackPanel>
+    </ScrollViewer>
+    <Border x:Name="NavigationPanel" Grid.RowSpan="3" Width="230" HorizontalAlignment="Left" IsVisible="{Binding IsNavVisible}" ZIndex="20" Background="{DynamicResource Etc.Color.Ground}" BorderBrush="{DynamicResource Etc.Color.Rule}" BorderThickness="0,0,1,0" Padding="16,12">
+      <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Spacing="12" Margin="0,0,0,24"><StackPanel Orientation="Horizontal" Spacing="12"><Border Background="White" Width="44" Height="44" CornerRadius="6"><Image Source="avares://Etc.Desktop/Assets/ETC.png" Width="36" Height="36" Stretch="Uniform" AutomationProperties.Name="Logo ETC"/></Border><TextBlock Text="ETC" Classes="section" VerticalAlignment="Center"/></StackPanel><TextBlock Text="#RISTEKNIATBAIK" Classes="small"/></StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Spacing="8">
+          <Button Classes="nav nav-profile" AutomationProperties.Name="Profil saya" Command="{Binding ProfileCommand}"><StackPanel Orientation="Horizontal" Spacing="10"><PathIcon Width="16" Height="16" Data="{ReflectionBinding Source=person,Converter={StaticResource Icon}}"/><TextBlock Text="Profil saya"/></StackPanel></Button>
+          <Button Classes="nav nav-logout" AutomationProperties.Name="Keluar" Command="{Binding LogoutCommand}"><StackPanel Orientation="Horizontal" Spacing="10"><PathIcon Width="16" Height="16" Data="{ReflectionBinding Source=sign-out,Converter={StaticResource Icon}}"/><TextBlock Text="Keluar"/></StackPanel></Button>
+          <Button IsVisible="{Binding IsCompact}" Content="Tutup menu" Command="{Binding MenuCommand}"/>
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Navigation}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="s:NavigationItem"><Button Classes="nav" Classes.active="{Binding Active}" Command="{ReflectionBinding $parent[UserControl].DataContext.NavigateToCommand}" CommandParameter="{Binding Route}"><StackPanel Orientation="Horizontal" Spacing="10"><PathIcon Width="16" Height="16" Data="{Binding IconKey,Converter={StaticResource Icon}}"/><TextBlock Text="{Binding Label}"/></StackPanel></Button></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+      </DockPanel>
+    </Border>
+  </Grid>
+</UserControl>

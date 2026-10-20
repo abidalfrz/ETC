@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Recruitments" x:Class="Etc.Desktop.Features.Recruitments.MyRecruitmentsView" x:DataType="vm:MyRecruitmentsViewModel">
+  <StackPanel Spacing="24">
+    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16"><TextBlock Text="Kelola posting dan seleksi anggota tim Anda." Classes="muted" VerticalAlignment="Center"/><Button Grid.Column="1" Classes="primary" Command="{Binding CreateCommand}"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=team,Converter={StaticResource Icon}}"/><TextBlock Text="Buat rekrutmen"/></StackPanel></Button></Grid>
+    <Border Classes="panel" IsVisible="{Binding !HasItems}"><StackPanel Spacing="12"><TextBlock Text="Anda belum membuat rekrutmen." Classes="section"/><TextBlock Text="Buka posisi dan temukan mahasiswa untuk bergabung dengan tim Anda." Classes="muted"/><Button Content="Buat rekrutmen" Command="{Binding CreateCommand}" HorizontalAlignment="Left"/></StackPanel></Border>
+    <ItemsControl ItemsSource="{Binding Items}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="vm:RecruitmentSummary">
+      <Border Classes="list-card"><StackPanel Spacing="16">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16"><StackPanel Spacing="4"><TextBlock Text="{Binding Title}" Classes="section"/><TextBlock Text="{Binding CategoryText}" Classes="small"/></StackPanel><Border Grid.Column="1" Classes="status" VerticalAlignment="Top" MaxWidth="200"><TextBlock Text="{Binding StatusText}"/></Border></Grid>
+        <Border Classes="position-summary"><Grid ColumnDefinitions="Auto,*" ColumnSpacing="12"><PathIcon Classes="inline" VerticalAlignment="Top" Margin="0,2,0,0" Data="{ReflectionBinding Source=team,Converter={StaticResource Icon}}"/><TextBlock Grid.Column="1" Text="{Binding PositionsText}"/></Grid></Border>
+        <TextBlock Text="{Binding DeadlineText,StringFormat='Tenggat: {0}'}" Classes="small"/>
+        <Border Classes="card-actions"><WrapPanel>
+          <Button Command="{ReflectionBinding $parent[UserControl].DataContext.OpenCommand}" CommandParameter="{Binding Id}" Margin="0,0,12,8"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=document,Converter={StaticResource Icon}}"/><TextBlock Text="Detail"/></StackPanel></Button>
+          <Button Content="Edit" Command="{ReflectionBinding $parent[UserControl].DataContext.EditCommand}" CommandParameter="{Binding Id}" Margin="0,0,12,8"/>
+          <Button Content="Lihat pelamar" IsVisible="{Binding !IsDraft}" Command="{ReflectionBinding $parent[UserControl].DataContext.ApplicantsCommand}" CommandParameter="{Binding Id}" Margin="0,0,12,8"/>
+          <Button Content="Publikasikan" IsVisible="{Binding IsDraft}" Command="{ReflectionBinding $parent[UserControl].DataContext.PublishCommand}" CommandParameter="{Binding}" Margin="0,0,12,8"/>
+          <Button Content="Tutup rekrutmen" IsVisible="{Binding IsOpen}" Command="{ReflectionBinding $parent[UserControl].DataContext.CloseCommand}" CommandParameter="{Binding}" Margin="0,0,12,8"/>
+          <Button Classes="danger" Content="Hapus draft" IsVisible="{Binding IsDraft}" Command="{ReflectionBinding $parent[UserControl].DataContext.DeleteCommand}" CommandParameter="{Binding}" Margin="0,0,0,8"/>
+        </WrapPanel></Border>
+      </StackPanel></Border>
+    </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+    <WrapPanel><TextBlock Text="{Binding PagingText}" VerticalAlignment="Center" Classes="muted" Margin="0,0,24,8"/><Button Content="Sebelumnya" Command="{Binding PreviousCommand}" Margin="0,0,12,8"/><Button Content="Berikutnya" Command="{Binding NextCommand}"/></WrapPanel>
+  </StackPanel>
+</UserControl>

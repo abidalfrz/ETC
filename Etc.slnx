@@ -1,0 +1,1 @@
+<Solution><Project Path="src/Etc.Desktop/Etc.Desktop.csproj" /><Project Path="tests/Etc.UnitTests/Etc.UnitTests.csproj" /><Project Path="tests/Etc.IntegrationTests/Etc.IntegrationTests.csproj" /></Solution>

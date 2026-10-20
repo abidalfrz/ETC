@@ -1,0 +1,5 @@
+<Application xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.App" RequestedThemeVariant="Light">
+  <Application.Resources><ResourceDictionary><ResourceDictionary.MergedDictionaries><ResourceInclude Source="avares://Etc.Desktop/Styles/Tokens.axaml"/></ResourceDictionary.MergedDictionaries><s:PhotoConverter x:Key="Photo"/><s:IconConverter x:Key="Icon"/></ResourceDictionary></Application.Resources>
+  <Application.Styles><FluentTheme><FluentTheme.Palettes><ColorPaletteResources x:Key="Light" Accent="#0B1F3A"/></FluentTheme.Palettes></FluentTheme><StyleInclude Source="avares://Etc.Desktop/Styles/Controls.axaml"/></Application.Styles>
+  <Application.DataTemplates><s:ViewLocator/></Application.DataTemplates>
+</Application>

@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Recruitments" xmlns:p="using:Etc.Desktop.Features.Profiles" xmlns:s="using:Etc.Desktop.Shared" x:Class="Etc.Desktop.Features.Recruitments.SearchView" x:DataType="vm:SearchViewModel">
+  <StackPanel Spacing="24">
+    <Border Classes="panel"><StackPanel Spacing="16">
+      <StackPanel Spacing="8"><TextBlock Classes="label" Text="Cari judul atau nama kegiatan"/><TextBox Text="{Binding SearchText}" MaxLength="200" AutomationProperties.Name="Cari rekrutmen"><TextBox.KeyBindings><KeyBinding Gesture="Enter" Command="{Binding SearchCommand}"/></TextBox.KeyBindings></TextBox></StackPanel>
+      <Expander x:Name="Filters" Header="Filter kategori, skill, dan posisi" IsExpanded="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+      <s:AdaptiveGrid WideColumns="2" NarrowColumns="1" SideWidth="0" Breakpoint="700" Margin="0,16,0,0">
+        <StackPanel Spacing="8"><TextBlock Text="Kategori" Classes="label"/><ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" AutomationProperties.Name="Kategori kegiatan"/></StackPanel>
+        <StackPanel Spacing="8"><TextBlock Text="Skill" Classes="label"/><ComboBox ItemsSource="{Binding Skills}" SelectedItem="{Binding SelectedSkill}" PlaceholderText="Semua skill" AutomationProperties.Name="Filter skill"><ComboBox.ItemTemplate><DataTemplate x:DataType="p:SkillOption"><TextBlock Text="{Binding Name}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
+        <StackPanel Spacing="8"><TextBlock Text="Posisi" Classes="label"/><TextBox Text="{Binding PositionText}" MaxLength="120" AutomationProperties.Name="Filter posisi" PlaceholderText="Contoh: Backend"/></StackPanel>
+        <CheckBox Content="Hanya yang masih menerima lamaran" IsChecked="{Binding OnlyAvailable}" VerticalAlignment="Bottom"/>
+      </s:AdaptiveGrid></Expander>
+      <WrapPanel><Button Classes="primary" Command="{Binding SearchCommand}" Margin="0,0,12,4"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=search,Converter={StaticResource Icon}}"/><TextBlock Text="Terapkan pencarian"/></StackPanel></Button><Button Content="Hapus filter" Command="{Binding ResetCommand}" Margin="0,0,0,4"/></WrapPanel>
+    </StackPanel></Border>
+    <Grid ColumnDefinitions="*,Auto"><TextBlock Classes="section" Text="Hasil rekrutmen"/><Button Grid.Column="1" Content="Muat ulang" Command="{Binding RefreshCommand}"/></Grid>
+    <Border Classes="panel" IsVisible="{Binding !HasItems}"><StackPanel Spacing="12"><TextBlock Classes="section" Text="Tidak ada rekrutmen yang cocok."/><TextBlock Classes="muted" Text="Coba kata kunci lain atau hapus filter untuk melihat pilihan rekrutmen."/><Button HorizontalAlignment="Left" Content="Hapus filter" Command="{Binding ResetCommand}"/></StackPanel></Border>
+    <ItemsControl ItemsSource="{Binding Items}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="vm:RecruitmentSummary">
+      <Border Classes="list-card"><StackPanel Spacing="16">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16"><StackPanel Spacing="4"><Button Classes="tertiary" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Command="{ReflectionBinding $parent[UserControl].DataContext.OpenCommand}" CommandParameter="{Binding Id}"><TextBlock Text="{Binding Title}" Classes="section"/></Button><TextBlock Text="{Binding CategoryText}" Classes="small"/></StackPanel><Border Grid.Column="1" Classes="status" VerticalAlignment="Top" MaxWidth="200"><TextBlock Text="{Binding StatusText}"/></Border></Grid>
+        <Border Classes="position-summary"><Grid ColumnDefinitions="Auto,*" ColumnSpacing="12"><PathIcon Classes="inline" VerticalAlignment="Top" Margin="0,2,0,0" Data="{ReflectionBinding Source=team,Converter={StaticResource Icon}}"/><TextBlock Grid.Column="1" Text="{Binding PositionsText}"/></Grid></Border>
+        <TextBlock Text="{Binding DeadlineText,StringFormat='Tenggat: {0}'}" Classes="small"/>
+        <Border Classes="card-actions"><WrapPanel>
+          <Button Command="{ReflectionBinding $parent[UserControl].DataContext.OpenCommand}" CommandParameter="{Binding Id}" Margin="0,0,12,8"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=document,Converter={StaticResource Icon}}"/><TextBlock Text="Lihat posisi"/></StackPanel></Button>
+          <Button Command="{ReflectionBinding $parent[UserControl].DataContext.BookmarkCommand}" CommandParameter="{Binding}" IsVisible="{Binding !IsBookmarked}" Margin="0,0,0,8"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=bookmark,Converter={StaticResource Icon}}"/><TextBlock Text="Simpan bookmark"/></StackPanel></Button>
+          <Button Classes="saved" Command="{ReflectionBinding $parent[UserControl].DataContext.BookmarkCommand}" CommandParameter="{Binding}" IsVisible="{Binding IsBookmarked}" Margin="0,0,0,8"><StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Classes="inline" Data="{ReflectionBinding Source=bookmark,Converter={StaticResource Icon}}"/><TextBlock Text="Hapus bookmark"/></StackPanel></Button>
+        </WrapPanel></Border>
+      </StackPanel></Border>
+    </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+    <WrapPanel><TextBlock Text="{Binding PagingText}" Classes="muted" VerticalAlignment="Center" Margin="0,0,24,8"/><Button Content="Sebelumnya" Command="{Binding PreviousCommand}" Margin="0,0,12,8"/><Button Content="Berikutnya" Command="{Binding NextCommand}"/></WrapPanel>
+  </StackPanel>
+</UserControl>

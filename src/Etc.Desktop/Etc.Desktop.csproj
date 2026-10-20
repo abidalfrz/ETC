@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>WinExe</OutputType><AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault><RuntimeIdentifiers>linux-x64;win-x64</RuntimeIdentifiers></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.3" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets/**" Exclude="Assets/mentor/**;Assets/tabel_mahasiswa.md" />
+    <EmbeddedResource Include="../../database/*.sql" Link="Database/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Assets/tabel_mahasiswa.md" LogicalName="MentorDirectory.md" />
+    <EmbeddedResource Include="Assets/mentor/**" LogicalName="MentorPhotos/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Accounts" x:Class="Etc.Desktop.Features.Accounts.RegisterView" x:DataType="vm:RegisterViewModel">
+  <Border Classes="panel" MaxWidth="440" HorizontalAlignment="Center"><StackPanel Spacing="16">
+    <TextBlock Classes="title" Text="Buat akun" AutomationProperties.HeadingLevel="1"/><TextBlock Classes="muted" Text="Gunakan profil mahasiswa untuk memperkenalkan skill Anda."/>
+    <StackPanel Spacing="8"><TextBlock Classes="label" Text="Nama lengkap *"/><TextBox Text="{Binding FullName}" MaxLength="120" AutomationProperties.Name="Nama lengkap"/></StackPanel>
+    <StackPanel Spacing="8"><TextBlock Classes="label" Text="Email *"/><TextBox Text="{Binding Email}" MaxLength="254" AutomationProperties.Name="Email"/></StackPanel>
+    <StackPanel Spacing="8"><TextBlock Classes="label" Text="Password *"/><TextBox Text="{Binding Password}" PasswordChar="●" MaxLength="128" AutomationProperties.Name="Password"/><TextBlock Classes="small" Text="Gunakan 12–128 karakter."/></StackPanel>
+    <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Etc.Color.DangerInk}" IsVisible="{Binding HasError}"/>
+    <Button Classes="primary" Content="Buat akun" Command="{Binding RegisterCommand}" IsEnabled="{Binding !IsBusy}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+    <Button Classes="tertiary" Command="{Binding LoginCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+      <TextBlock><Run Text="Sudah punya akun? "/><Run Text="Masuk" Foreground="{DynamicResource Etc.Color.AccentInk}" FontWeight="SemiBold"/></TextBlock>
+    </Button>
+  </StackPanel></Border>
+</UserControl>

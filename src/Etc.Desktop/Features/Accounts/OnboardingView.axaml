@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="using:Etc.Desktop.Features.Accounts" x:Class="Etc.Desktop.Features.Accounts.OnboardingView" x:DataType="vm:OnboardingViewModel">
+  <StackPanel MaxWidth="660" HorizontalAlignment="Center" Spacing="24" Margin="0,24">
+    <Border Background="White" CornerRadius="8" Padding="16" HorizontalAlignment="Left"><Image Source="avares://Etc.Desktop/Assets/ETC.png" Width="92" Height="84" Stretch="Uniform"/></Border>
+    <TextBlock Text="Elite TC Champions" Classes="section"/><TextBlock Classes="title" Text="Temukan tim. Mulai kolaborasi." AutomationProperties.HeadingLevel="1"/>
+    <TextBlock Text="Cari posisi dalam tim lomba atau proyek, rekrut anggota sesuai kebutuhan skill, dan temukan informasi mentor."/>
+    <Border Classes="panel"><StackPanel Spacing="16"><TextBlock Classes="section" Text="Satu mahasiswa, dua kesempatan"/><TextBlock Text="Buat rekrutmen saat membutuhkan anggota. Lamar posisi mahasiswa lain saat ingin bergabung. Anda tidak perlu berpindah jenis akun."/></StackPanel></Border>
+    <StackPanel Orientation="Horizontal" Spacing="12"><Button Classes="primary" Content="Masuk" Command="{Binding LoginCommand}"/><Button Content="Buat akun" Command="{Binding RegisterCommand}"/></StackPanel>
+  </StackPanel>
+</UserControl>
