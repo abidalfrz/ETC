@@ -182,9 +182,40 @@ database pengujian terpisah, bukan `ETC_Demo`:
 dotnet test Etc.slnx
 ```
 
-## Catatan Batasan
+## Dokumentasi
 
-ETC merupakan aplikasi demonstrasi desktop. Aplikasi tidak mencakup chat,
-notifikasi real-time, pembayaran, panel admin, deployment publik, atau
-sinkronisasi offline. Data tersimpan pada SQL Server lokal dan sesi login
-berakhir ketika aplikasi ditutup.
+### Login Page
+
+![Login Page](assets/login.png)
+
+### Registration Page
+
+![Registration Page](assets/register.png)
+
+### Dashboard Page
+
+![Dashboard Page](assets/dashboard.png)
+
+### Rekrutmen Page
+
+![Rekrutmen Page](assets/rekrutmen.png)
+
+### Rekrutmen Saya Page
+
+![Rekrutmen Saya Page](assets/my-rekrutmen.png)
+
+### Lamaran Page
+
+![Lamaran Page](assets/lamaran.png)
+
+### Bookmark Page
+
+![Bookmark Page](assets/bookmark.png)
+
+### Mentor Page
+
+![Mentor Page](assets/mentor.png)
+
+### Profile Page
+
+![Profile Page](assets/profile.png)
