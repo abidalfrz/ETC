@@ -6,6 +6,9 @@ Prodi: Teknik Informatika
 Mata Kuliah: Pemrograman Berbasis Kerangka Kerja  
 Kelas: D
 
+File PRD: [PRD.pdf](https://github.com/abidalfrz/ETC/blob/main/PRD.pdf)
+Video Demo: [YouTube](https://www.youtube.com/watch?v=fST3n_nGM44)
+
 ---
 
 ## Program ETC Desktop
@@ -75,6 +78,8 @@ ETC/
 │   └── Etc.IntegrationTests/
 ├── tools/Etc.RenderChecks/
 ├── Etc.slnx
+├── PRD.pdf
+├── README.md
 ├── global.json
 └── Directory.Build.props
 ```
