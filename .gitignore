@@ -3,3 +3,4 @@ obj/
 TestResults/
 *.user
 *.local.json
+backup/
